@@ -2,15 +2,18 @@
 
 # Install Nginx on Host
 
-→ sudo apt-get install nginx
+```
+sudo apt-get install nginx
+```
 
 Change the configuration at /etc/nginx/conf.d/default
 
 Note :- replace your site name where you see www.dominname.in
 
+```
 server 
 {
-        server_name www.dominname.in;
+       server_name www.dominname.in;
 	
 	location /.well-known/ {
 	
@@ -22,9 +25,9 @@ server
 	
         return 301 https://$server_name$request_uri;
 	
+	} 
 	}
-}
-
+```
 
 This configuration does two things 
 
@@ -37,26 +40,30 @@ Obtain an HTTPS certificate from LetsEncrypt
 Before we enable Nginx we'll need to obtain a certificate for your domain. HTTPS encrypts the HTTP connection between your users and your site. It is essential when you use the admin page.
 Use certbot to get a certificate.
 
-→ sudo apt-get install software-properties-common
+```sudo apt-get install software-properties-common```
 
-→ sudo apt update
+```sudo apt update```
 
-→ sudo apt-get install python3-certbot-nginx 
+```sudo apt-get install python3-certbot-nginx``` 
 
-→ sudo certbot --authenticator webroot --installer nginx
+```sudo certbot --authenticator webroot --installer nginx```
 
 It will ask for the webroot path 
 
-→ /var/www/html/
+``` /var/www/html/```
 
 After getting the SSL certificate change the config for HTTPS
 
-Edit /etc/nginx/conf.d/default:
+Edit  ```/etc/nginx/conf.d/default.conf```
 
 Note :- replace your site name where you see sanela.in
 
-server {
+```
+server 
+      {
+	
 	server_name sanela.in;
+	
 	listen 443 ssl;
 
 	location / {
@@ -73,18 +80,18 @@ server {
 	ssl on;
  
 }
-
+```
 
 # Enable Nginx
 
 You can now start and enable Nginx, then head over to your URL in a web browser to test that everything worked.
 
-→  sudo systemctl enable nginx
+```sudo systemctl enable nginx```
 
-→  sudo systemctl start nginx
+```sudo systemctl start nginx```
 
 # To Renew SSL certificate:
 
-→ sudo certbot -v
+```sudo certbot -v```
 
 Select the domain name in the list and select redirect.
