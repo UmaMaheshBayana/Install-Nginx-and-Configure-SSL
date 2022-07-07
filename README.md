@@ -8,15 +8,21 @@ Change the configuration at /etc/nginx/conf.d/default
 
 Note :- replace your site name where you see www.dominname.in
 
-server {
+server 
+{
         server_name www.dominname.in;
+	
         location /.well-known/ {
+	
                 root /var/www/www.domainname.in/.well-known/;
         }
 
         location / {
+	
                 return 301 https://$server_name$request_uri;
+		
         }
+	
 }
 
 
